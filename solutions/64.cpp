@@ -2,6 +2,7 @@
 #include <algorithm>
 
 using namespace std;
+// time complexity: O(mn)
 
 /* explanation:
  * we can only reach a point from either the left or right
