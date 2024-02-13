@@ -1,7 +1,8 @@
 #include <vector>
+#include <bitset>
 
 using namespace std;
-// best time: 16 ms (92nd percentile)
+// best time: 13 ms (98th percentile)
 
 /* explanation:
  * to efficiently store the connections between each city as a graph, we can use a disjoint set / union find
@@ -21,12 +22,12 @@ public:
                 if (isConnected[i][j])
                     d.set_union(i, j);
 
-        vector<bool> provinces (size);
+        bitset<200> provinces; // it's guaranteed that there won't be any more than 200 cities in the 2D vector provided, so it's perfectly reasonable to use a bitset with 200 bits (25 bytes) as an upper bound for the sake of speed
         int ret = 0;
         for (int i = 0; i < size; ++i)
-            if (auto p = provinces[d.find(i)]; !p)
+            if (auto idx = d.find(i); !provinces[idx])
                 ++ret,
-                p = true;
+                provinces.set(idx);
 
         return ret;
     }
@@ -41,7 +42,7 @@ public:
         }
 
         int find(int v) {
-            while (v != parent[v]) // using a while loop instead of recursion to lessen memory usage
+            while (v != parent[v])
                 v = parent[v];
 
             return v;
