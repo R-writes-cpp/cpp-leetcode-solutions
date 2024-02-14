@@ -4,7 +4,6 @@
 
 using namespace std;
 // time: 0 ms
-// time complexity: O(n log n)
 
 /* explanation:
  * in this solution we'll be using a disjoint set / union find to find the lexicographically smallest character that we can use for each character in our base string
