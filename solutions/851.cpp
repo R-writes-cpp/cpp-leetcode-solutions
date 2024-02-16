@@ -1,5 +1,4 @@
 #include <vector>
-#include <numeric>
 #include <deque>
 
 using namespace std;
@@ -7,7 +6,7 @@ using namespace std;
 
 /* explanation:
  * we know that if x represents a person who isn't definitely poorer than anyone else, then answer[x] = x
- * if there are people who are richer than x, then answer[x] will be equal to the least quiet person out of all the people richer than x
+ * if there are people who are richer than x, then answer[x] will be equal to the least quiet person out of all the people who are either richer than or as rich as x
  * so if we start with the people who aren't definitely poorer than anyone else, we can define all the other elements recursively via dynamic programming
  * to start with these people, we can use a topological sort! in this solution, Kahn's algorithm is used.
 */
@@ -24,12 +23,13 @@ public:
             descendants[r[0]].push_back(r[1]);
 
         vector<int> ret (size);
-        iota (ret.begin(), ret.end(), 0);
         deque<size_t> dq;
 
-        for (size_t i = 0; i < size; ++i)
+        for (size_t i = 0; i < size; ++i) {
+            ret[i] = i;
             if (in_degree[i] == 0)
                 dq.push_front(i);
+        }
 
         while (dq.size()) {
             auto& front = dq.front();
