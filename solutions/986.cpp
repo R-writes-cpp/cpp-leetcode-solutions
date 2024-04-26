@@ -14,7 +14,7 @@ class Solution {
 public:
     vector<vector<int>> intervalIntersection(vector<vector<int>>& firstList, vector<vector<int>>& secondList) {
         vector<vector<int>> ret;
-        ret.reserve (max (firstList.size(), secondList.size())); // in ret, we can have at most the maximum
+        ret.reserve (max (firstList.size(), secondList.size())); // we can't have any more intervals in ret than the maximum number of intervals in one list. this is because for an interval intersection to exist there must be two other different intervals which have an overlap. if we assume that one of these intervals is the same for each of the intersection intervals in ret (worst-case scenario) then there'll be as many intervals in ret as there are intervals in the other list
 
         for (int i {0}, j {0}, i_max = firstList.size(), j_max = secondList.size(); i < i_max && j < j_max;) {
             while (firstList[i][1] < secondList[j][0] || secondList[j][1] < firstList[i][0])
